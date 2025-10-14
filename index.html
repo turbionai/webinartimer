@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>20 Minute Countdown Timer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .timer-container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 50px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            max-width: 500px;
+            width: 100%;
+        }
+        
+        .timer-display {
+            font-size: 72px;
+            font-weight: bold;
+            color: #333;
+            margin: 30px 0;
+            font-variant-numeric: tabular-nums;
+            letter-spacing: 0.05em;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 10px;
+            background: #e0e0e0;
+            border-radius: 5px;
+            overflow: hidden;
+            margin: 30px 0;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            width: 100%;
+            transition: width 1s linear;
+        }
+        
+        .controls {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        button {
+            padding: 15px 30px;
+            font-size: 16px;
+            font-weight: 600;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .start-btn {
+            background: #4CAF50;
+            color: white;
+        }
+        
+        .start-btn:hover {
+            background: #45a049;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(76, 175, 80, 0.4);
+        }
+        
+        .pause-btn {
+            background: #ff9800;
+            color: white;
+        }
+        
+        .pause-btn:hover {
+            background: #e68900;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 152, 0, 0.4);
+        }
+        
+        .reset-btn {
+            background: #f44336;
+            color: white;
+        }
+        
+        .reset-btn:hover {
+            background: #da190b;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(244, 67, 54, 0.4);
+        }
+        
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+        
+        .status {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #666;
+            font-weight: 500;
+        }
+        
+        .finished {
+            color: #4CAF50;
+            font-weight: bold;
+            animation: pulse 1s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+    </style>
+</head>
+<body>
+    <div class="timer-container">
+        <h1 style="color: #667eea; margin-bottom: 20px;">20 Minute Timer</h1>
+        <div class="timer-display" id="display">20:00</div>
+        <div class="progress-bar">
+            <div class="progress-fill" id="progress"></div>
+        </div>
+        <div class="controls">
+            <button class="start-btn" id="startBtn" onclick="startTimer()">Start</button>
+            <button class="pause-btn" id="pauseBtn" onclick="pauseTimer()" disabled>Pause</button>
+            <button class="reset-btn" id="resetBtn" onclick="resetTimer()">Reset</button>
+        </div>
+        <div class="status" id="status">Ready to start</div>
+    </div>
+
+    <script>
+        const TOTAL_SECONDS = 20 * 60; // 20 minutes in seconds
+        let remainingSeconds = TOTAL_SECONDS;
+        let timerInterval = null;
+        let isRunning = false;
+
+        const display = document.getElementById('display');
+        const progress = document.getElementById('progress');
+        const status = document.getElementById('status');
+        const startBtn = document.getElementById('startBtn');
+        const pauseBtn = document.getElementById('pauseBtn');
+        const resetBtn = document.getElementById('resetBtn');
+
+        function formatTime(seconds) {
+            const mins = Math.floor(seconds / 60);
+            const secs = seconds % 60;
+            return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+        }
+
+        function updateDisplay() {
+            display.textContent = formatTime(remainingSeconds);
+            const progressPercent = (remainingSeconds / TOTAL_SECONDS) * 100;
+            progress.style.width = progressPercent + '%';
+        }
+
+        function startTimer() {
+            if (isRunning) return;
+            
+            isRunning = true;
+            startBtn.disabled = true;
+            pauseBtn.disabled = false;
+            status.textContent = 'Timer running...';
+            status.classList.remove('finished');
+
+            timerInterval = setInterval(() => {
+                remainingSeconds--;
+                updateDisplay();
+
+                if (remainingSeconds <= 0) {
+                    finishTimer();
+                }
+            }, 1000);
+        }
+
+        function pauseTimer() {
+            if (!isRunning) return;
+            
+            clearInterval(timerInterval);
+            isRunning = false;
+            startBtn.disabled = false;
+            pauseBtn.disabled = true;
+            status.textContent = 'Timer paused';
+        }
+
+        function resetTimer() {
+            clearInterval(timerInterval);
+            isRunning = false;
+            remainingSeconds = TOTAL_SECONDS;
+            updateDisplay();
+            startBtn.disabled = false;
+            pauseBtn.disabled = true;
+            status.textContent = 'Ready to start';
+            status.classList.remove('finished');
+        }
+
+        function finishTimer() {
+            clearInterval(timerInterval);
+            isRunning = false;
+            remainingSeconds = 0;
+            updateDisplay();
+            startBtn.disabled = false;
+            pauseBtn.disabled = true;
+            status.textContent = 'Time\'s up!';
+            status.classList.add('finished');
+            
+            // Optional: Play a sound or show a notification
+            if ('Notification' in window && Notification.permission === 'granted') {
+                new Notification('Timer Complete!', {
+                    body: '20 minutes have elapsed.',
+                    icon: '⏰'
+                });
+            }
+        }
+
+        // Initialize display
+        updateDisplay();
+    </script>
+</body>
+</html>
