@@ -53,6 +53,9 @@
             grid-template-columns: 1fr 1fr;
             gap: 20px;
             margin-bottom: 20px;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
         }
         
         .price-box {
@@ -106,6 +109,126 @@
             color: #6b7280;
             margin: 20px 0 30px;
             font-weight: 500;
+        }
+        
+        .bonuses-section {
+            margin: 40px 0;
+        }
+        
+        .bonuses-header {
+            text-align: center;
+            font-size: 28px;
+            font-weight: 700;
+            color: #1d1d1f;
+            margin-bottom: 30px;
+        }
+        
+        .carousel-container {
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .carousel {
+            display: flex;
+            gap: 20px;
+            padding: 10px 5px 20px;
+            animation: scroll 30s linear infinite;
+        }
+        
+        @keyframes scroll {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(calc(-370px * 5));
+            }
+        }
+        
+        .carousel:hover {
+            animation-play-state: paused;
+        }
+        
+        .bonus-card {
+            flex: 0 0 350px;
+            border-radius: 15px;
+            padding: 25px;
+            border: 3px solid;
+            position: relative;
+            background: white;
+        }
+        
+        .bonus-card.blue {
+            border-color: #3b5bdb;
+            background: linear-gradient(135deg, #f0f3ff 0%, #ffffff 100%);
+        }
+        
+        .bonus-card.cyan {
+            border-color: #0ea5e9;
+            background: linear-gradient(135deg, #e0f2fe 0%, #ffffff 100%);
+        }
+        
+        .bonus-card.pink {
+            border-color: #ec4899;
+            background: linear-gradient(135deg, #fce7f3 0%, #ffffff 100%);
+        }
+        
+        .bonus-number {
+            position: absolute;
+            top: -20px;
+            left: 20px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: #3b5bdb;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: 800;
+            box-shadow: 0 4px 12px rgba(59, 91, 219, 0.4);
+        }
+        
+        .bonus-card.cyan .bonus-number {
+            background: #0ea5e9;
+            box-shadow: 0 4px 12px rgba(14, 165, 233, 0.4);
+        }
+        
+        .bonus-card.pink .bonus-number {
+            background: #ec4899;
+            box-shadow: 0 4px 12px rgba(236, 72, 153, 0.4);
+        }
+        
+        .bonus-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #1d1d1f;
+            margin: 10px 0 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .check-icon {
+            color: #22c55e;
+            font-size: 20px;
+        }
+        
+        .bonus-description {
+            font-size: 15px;
+            color: #4b5563;
+            line-height: 1.6;
+        }
+        
+        .limited-badge {
+            display: inline-block;
+            background: #fef3c7;
+            color: #92400e;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-top: 10px;
         }
         
         .timer-section {
@@ -336,8 +459,130 @@
             <div class="warning-box">
                 <div class="warning-icon">⏱️</div>
                 <div class="warning-content">
-                    <div class="warning-title">⚡ 30-Minute Timer Activated</div>
+                    <div class="warning-title">⚡ 20-Minute Timer Activated</div>
                     <div class="warning-text">After the timer hits zero, the offer is no longer available at this price.</div>
+                </div>
+            </div>
+            
+            <div class="bonuses-section">
+                <div class="bonuses-header">🎁 Fast-Action Taker Bonuses</div>
+                <p style="text-align: center; font-size: 20px; font-weight: 600; margin-bottom: 25px; color: #1d1d1f;">If You Join Before The Timer Ends:</p>
+                
+                <div class="carousel-container">
+                    <div class="carousel">
+                        <div class="bonus-card blue">
+                            <div class="bonus-number">1</div>
+                            <div class="bonus-title">
+                                <span class="check-icon">✅</span>
+                                <span>Bonus #1: Subconscious Realignment Hypnosis Audio</span>
+                            </div>
+                            <div class="bonus-description">
+                                Align your Genius daily. Tap into your higher frequency on command.
+                            </div>
+                        </div>
+                        
+                        <div class="bonus-card cyan">
+                            <div class="bonus-number">2</div>
+                            <div class="bonus-title">
+                                <span class="check-icon">✅</span>
+                                <span>Bonus #2: Genius Blueprint Partner Rolodex</span>
+                            </div>
+                            <div class="bonus-description">
+                                Sam's private list of aligned copywriters, closers, VAs, legal + automation partners.
+                            </div>
+                        </div>
+                        
+                        <div class="bonus-card pink">
+                            <div class="bonus-number">3</div>
+                            <div class="bonus-title">
+                                <span class="check-icon">✅</span>
+                                <span>Bonus #3: Private 1:1 Onboarding Session</span>
+                            </div>
+                            <div class="bonus-description">
+                                Get customized strategy, Genius review, and integration plan.
+                            </div>
+                            <div class="limited-badge">Limited to first 10 buyers</div>
+                        </div>
+                        
+                        <div class="bonus-card blue">
+                            <div class="bonus-number">4</div>
+                            <div class="bonus-title">
+                                <span class="check-icon">✅</span>
+                                <span>Bonus #4: Early Beta Access to the Freedom App</span>
+                            </div>
+                            <div class="bonus-description">
+                                Lifetime membership to the soon-to-launch Freedom Portal.
+                            </div>
+                        </div>
+                        
+                        <div class="bonus-card cyan">
+                            <div class="bonus-number">5</div>
+                            <div class="bonus-title">
+                                <span class="check-icon">✅</span>
+                                <span>Bonus #5: Upgrade Credit Toward Mastermind</span>
+                            </div>
+                            <div class="bonus-description">
+                                $1,000 credit toward the invite-only Mastermind if you choose to upgrade.
+                            </div>
+                        </div>
+                        
+                        <!-- Duplicate cards for seamless loop -->
+                        <div class="bonus-card blue">
+                            <div class="bonus-number">1</div>
+                            <div class="bonus-title">
+                                <span class="check-icon">✅</span>
+                                <span>Bonus #1: Subconscious Realignment Hypnosis Audio</span>
+                            </div>
+                            <div class="bonus-description">
+                                Align your Genius daily. Tap into your higher frequency on command.
+                            </div>
+                        </div>
+                        
+                        <div class="bonus-card cyan">
+                            <div class="bonus-number">2</div>
+                            <div class="bonus-title">
+                                <span class="check-icon">✅</span>
+                                <span>Bonus #2: Genius Blueprint Partner Rolodex</span>
+                            </div>
+                            <div class="bonus-description">
+                                Sam's private list of aligned copywriters, closers, VAs, legal + automation partners.
+                            </div>
+                        </div>
+                        
+                        <div class="bonus-card pink">
+                            <div class="bonus-number">3</div>
+                            <div class="bonus-title">
+                                <span class="check-icon">✅</span>
+                                <span>Bonus #3: Private 1:1 Onboarding Session</span>
+                            </div>
+                            <div class="bonus-description">
+                                Get customized strategy, Genius review, and integration plan.
+                            </div>
+                            <div class="limited-badge">Limited to first 10 buyers</div>
+                        </div>
+                        
+                        <div class="bonus-card blue">
+                            <div class="bonus-number">4</div>
+                            <div class="bonus-title">
+                                <span class="check-icon">✅</span>
+                                <span>Bonus #4: Early Beta Access to the Freedom App</span>
+                            </div>
+                            <div class="bonus-description">
+                                Lifetime membership to the soon-to-launch Freedom Portal.
+                            </div>
+                        </div>
+                        
+                        <div class="bonus-card cyan">
+                            <div class="bonus-number">5</div>
+                            <div class="bonus-title">
+                                <span class="check-icon">✅</span>
+                                <span>Bonus #5: Upgrade Credit Toward Mastermind</span>
+                            </div>
+                            <div class="bonus-description">
+                                $1,000 credit toward the invite-only Mastermind if you choose to upgrade.
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
